@@ -3,10 +3,10 @@ let db = require('../helpers/db')
     , moment = require('moment')
     , P = require('bluebird');
 
-module.exports.getProductById = function (commentId) {
+module.exports.getProductById = function (productId) {
 
     return new P(function (resolve, reject) {
-        db.findCommentByID('products', commentId, function (result, err) {
+        db.findProductByID('products', productId, function (result, err) {
             if (err) {
                 reject(err);
             } else {
@@ -16,22 +16,22 @@ module.exports.getProductById = function (commentId) {
     });
 }
 
-module.exports.insertProduct = function (comment, transactionId) {
+module.exports.insertProduct = function (product, transactionId) {
     return new P(function (resolve, reject) {
         let createdAt = moment.utc().toDate();
         let updatedAt = moment.utc().toDate();
         try {
-                let newProduct = {
-                    'transactionId': transactionId,
-                    'createdAt': createdAt,
-                    'updatedAt': updatedAt
-                }
+            let newProduct = {
+                'transactionId': transactionId,
+                'createdAt': createdAt,
+                'updatedAt': updatedAt
+            }
 
-                db.insert('comments', newProduct).then(function (data) {
-                    resolve({ data });
-                }).catch(function (err) {
-                    reject(error);
-                })
+            db.insert('products', newProduct).then(function (data) {
+                resolve({ data });
+            }).catch(function (err) {
+                reject(error);
+            })
         } catch (error) {
             reject(_error);
         }
