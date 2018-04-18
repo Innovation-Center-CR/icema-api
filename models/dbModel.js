@@ -6,7 +6,7 @@ let db = require('../helpers/db')
 module.exports.getProductById = function (productId) {
 
     return new P(function (resolve, reject) {
-        db.findProductByID('products', productId, function (result, err) {
+        db.findOne('products', productId, function (result, err) {
             if (err) {
                 reject(err);
             } else {
