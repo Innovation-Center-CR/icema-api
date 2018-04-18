@@ -35,7 +35,7 @@ app.use(helmet());
 let settings = { url: config.dbUrl };
 db.connect(settings, function (err) {
     if (err) {
-        logger.connectDBError('An error ocurred when connecting to the persistent db.');
+        console.error('An error ocurred when connecting to the persistent db - ', err);
         process.exit(1);
     } else {
       // If the connection with MongoDB is OK, lets run the API
